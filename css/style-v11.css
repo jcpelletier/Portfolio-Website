@@ -970,3 +970,14 @@ a:hover { text-decoration: underline; color: var(--blue-dk); }
   .dep-grid { grid-template-columns: 1fr; }
   .ess-body { grid-template-columns: 1fr; }
 }
+
+.rh-icon-wrap {
+  overflow: hidden;
+  border-radius: 50%;
+}
+.rh-headshot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

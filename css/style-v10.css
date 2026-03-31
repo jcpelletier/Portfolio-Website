@@ -749,3 +749,15 @@ footer {
   .proj-item { grid-template-columns: 1fr; }
   .edu-brut { grid-template-columns: 1fr; }
 }
+
+.sidebar-photo-block {
+  display: flex;
+  justify-content: center;
+}
+.headshot {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}

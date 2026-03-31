@@ -654,3 +654,14 @@ ul { list-style: none; }
   .exp-v3-top { flex-direction: column; gap: 2px; }
   .contact-v3-links { flex-direction: column; }
 }
+
+.sidebar-photo {
+  margin-bottom: 1.5rem;
+}
+.headshot {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}

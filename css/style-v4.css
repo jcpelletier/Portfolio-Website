@@ -791,3 +791,16 @@ footer {
   .hero-meta { gap: 14px; }
   .footer-inner { justify-content: center; text-align: center; }
 }
+
+.about-photo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.headshot {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}

@@ -706,3 +706,16 @@ footer {
 
   .footer-inner { justify-content: center; text-align: center; }
 }
+
+.about-photo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.headshot {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
