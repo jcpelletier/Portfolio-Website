@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joel Pelletier — Portfolio | Application Insights</title>
+  <meta name="description" content="Joel Pelletier — QA Manager and Technical Program Manager with 15+ years shipping software in healthcare, live entertainment, and gaming." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style-v11.css" />
+</head>
+<body>
+
+<div class="ai-shell">
+
+  <!-- ══════════════════════════════════════════════════════════
+       SIDEBAR
+  ══════════════════════════════════════════════════════════ -->
+  <nav class="ai-sidebar">
+
+    <div class="sidebar-brand">
+      <svg class="brand-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M3 3h7v7H3zm11 0h7v7h-7zM3 14h7v7H3zm11 3.5a3.5 3.5 0 1 0 7 0 3.5 3.5 0 0 0-7 0z" fill="currentColor" fill-opacity="0.9"/>
+      </svg>
+      <span class="brand-name">Application Insights</span>
+    </div>
+
+    <div class="sidebar-resource-name">jpelletier-portfolio</div>
+
+    <nav class="sidebar-nav">
+
+      <a href="#overview" class="snav-item active" data-section="overview">
+        <svg class="snav-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1 1h6v6H1V1zm8 0h6v6H9V1zM1 9h6v6H1V9zm8 2a3 3 0 1 0 6 0 3 3 0 0 0-6 0z"/></svg>
+        <span>Overview</span>
+      </a>
+
+      <div class="snav-group">Investigate</div>
+
+      <a href="#skills" class="snav-item" data-section="skills">
+        <svg class="snav-icon" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="11" width="14" height="2"/><rect x="1" y="7" width="10" height="2"/><rect x="1" y="3" width="7" height="2"/></svg>
+        <span>Performance</span>
+      </a>
+
+      <a href="#experience" class="snav-item" data-section="experience">
+        <svg class="snav-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm.5 7.71l-3-1.5.45-.9 2.55 1.27 3.04-4.06.8.6-3.84 4.59z"/></svg>
+        <span>Activity Log</span>
+      </a>
+
+      <a href="#projects" class="snav-item" data-section="projects">
+        <svg class="snav-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M14 3H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1 8H3V5h10v6z"/><path d="M5 7h6v1H5zm0 2h4v1H5z"/></svg>
+        <span>Dependencies</span>
+      </a>
+
+      <div class="snav-group">Monitoring</div>
+
+      <a href="#about" class="snav-item" data-section="about">
+        <svg class="snav-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0 3.5c1.93 0 3 1.07 3 2v.5H5V9.5c0-.93 1.07-2 3-2z"/></svg>
+        <span>Profile</span>
+      </a>
+
+      <div class="snav-group">Settings</div>
+
+      <a href="#contact" class="snav-item" data-section="contact">
+        <svg class="snav-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M14 2H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2.5l3.5 3 3.5-3H14a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/></svg>
+        <span>Connect</span>
+      </a>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="JPelletier_Resume_2026.pdf" target="_blank" class="sidebar-resume-link">
+        <svg class="snav-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M10 1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4l-3-3zm0 1.5L11.5 4H10V2.5zM5 7h6v1H5zm0 2h6v1H5zm0 2h4v1H5z"/></svg>
+        <span>Download Resume</span>
+      </a>
+    </div>
+
+  </nav><!-- /sidebar -->
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       MAIN AREA
+  ══════════════════════════════════════════════════════════ -->
+  <div class="ai-main">
+
+    <!-- TOP BAR -->
+    <header class="ai-topbar">
+      <div class="topbar-breadcrumb">
+        <span>Home</span>
+        <svg viewBox="0 0 8 14" class="bc-chevron"><path d="M1 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Portfolios</span>
+        <svg viewBox="0 0 8 14" class="bc-chevron"><path d="M1 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="bc-current">Joel Pelletier</span>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-timerange">
+          <svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm.5 3.5v4l2.5 1.5-.5.86L7.5 9V4.5h1z"/></svg>
+          Last 15 years
+          <svg viewBox="0 0 10 6" width="9"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        </div>
+        <button class="topbar-refresh" id="refreshBtn">
+          <svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor"><path d="M14 8A6 6 0 1 1 8 2v2l4-3-4-3v2A8 8 0 1 0 16 8h-2z"/></svg>
+          Refresh
+        </button>
+        <a href="mailto:joel@jpelletier.com" class="topbar-btn-primary">Get in Touch</a>
+      </div>
+    </header>
+
+
+    <!-- SCROLLABLE CONTENT -->
+    <div class="ai-scroll" id="mainScroll">
+
+      <!-- RESOURCE HEADER -->
+      <div class="ai-resource-header">
+        <div class="rh-icon-wrap">
+          <svg viewBox="0 0 24 24" class="rh-icon" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+        </div>
+        <div class="rh-info">
+          <div class="rh-type">Engineering Leader · Application Insights</div>
+          <h1 class="rh-name">Joel Pelletier</h1>
+          <div class="rh-subtitle">QA Manager &amp; Technical Program Manager &nbsp;·&nbsp; Boston Area, MA &nbsp;·&nbsp; <a href="mailto:joel@jpelletier.com">joel@jpelletier.com</a></div>
+        </div>
+        <div class="rh-status">
+          <span class="status-pill status-green">
+            <span class="status-dot"></span>
+            Open to Work
+          </span>
+        </div>
+      </div>
+
+
+      <!-- ESSENTIALS PANEL -->
+      <div class="ai-essentials" id="overview">
+        <div class="ess-header">
+          <span class="ess-title">Essentials</span>
+          <button class="ess-toggle" id="essToggle">Hide</button>
+        </div>
+        <div class="ess-body" id="essBody">
+          <div class="ess-col">
+            <div class="ess-row">
+              <span class="ess-label">Resource group</span>
+              <span class="ess-value">QA &amp; Program Management</span>
+            </div>
+            <div class="ess-row">
+              <span class="ess-label">Status</span>
+              <span class="ess-value" style="color:var(--green);">● Open to Work</span>
+            </div>
+            <div class="ess-row">
+              <span class="ess-label">Location</span>
+              <span class="ess-value">East US (Boston Area, MA)</span>
+            </div>
+          </div>
+          <div class="ess-col">
+            <div class="ess-row">
+              <span class="ess-label">Subscription</span>
+              <span class="ess-value"><a href="mailto:joel@jpelletier.com">joel@jpelletier.com</a></span>
+            </div>
+            <div class="ess-row">
+              <span class="ess-label">Instrumentation key</span>
+              <span class="ess-value ess-mono">603.540.8641</span>
+            </div>
+            <div class="ess-row">
+              <span class="ess-label">Application type</span>
+              <span class="ess-value">General / Web / Mobile</span>
+            </div>
+          </div>
+          <div class="ess-col">
+            <div class="ess-row">
+              <span class="ess-label">LinkedIn</span>
+              <span class="ess-value"><a href="https://www.linkedin.com/in/joelpelletier/" target="_blank">linkedin.com/in/joelpelletier</a></span>
+            </div>
+            <div class="ess-row">
+              <span class="ess-label">GitHub</span>
+              <span class="ess-value"><a href="https://github.com/jcpelletier" target="_blank">github.com/jcpelletier</a></span>
+            </div>
+            <div class="ess-row">
+              <span class="ess-label">Created</span>
+              <span class="ess-value">2009 — 15+ years ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- METRIC TILES -->
+      <div class="ai-metrics">
+
+        <div class="metric-tile">
+          <div class="mt-header">
+            <span class="mt-title">Years Active</span>
+            <span class="mt-period">Career lifetime</span>
+          </div>
+          <div class="mt-body">
+            <div class="mt-value"><span class="count-up" data-target="15">0</span><span class="mt-unit">+</span></div>
+            <div class="mt-trend trend-up">
+              <svg viewBox="0 0 10 10" width="10" height="10"><path d="M1 8L5 2L9 8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Increasing
+            </div>
+          </div>
+          <svg class="mt-spark" viewBox="0 0 100 36" preserveAspectRatio="none">
+            <defs><linearGradient id="sg1" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#deecf9" stop-opacity="0.8"/><stop offset="100%" stop-color="#deecf9" stop-opacity="0"/></linearGradient></defs>
+            <polyline class="spark-fill" style="fill:url(#sg1)" points="0,32 10,28 20,25 30,22 40,19 50,16 60,13 70,10 80,7 90,4 100,2 100,36 0,36"/>
+            <polyline class="spark-line" points="0,32 10,28 20,25 30,22 40,19 50,16 60,13 70,10 80,7 90,4 100,2"/>
+          </svg>
+        </div>
+
+        <div class="metric-tile">
+          <div class="mt-header">
+            <span class="mt-title">Test Coverage</span>
+            <span class="mt-period">Avg across projects</span>
+          </div>
+          <div class="mt-body">
+            <div class="mt-value"><span class="count-up" data-target="80">0</span><span class="mt-unit">%+</span></div>
+            <div class="mt-trend trend-up">
+              <svg viewBox="0 0 10 10" width="10" height="10"><path d="M1 8L5 2L9 8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Above benchmark
+            </div>
+          </div>
+          <svg class="mt-spark" viewBox="0 0 100 36" preserveAspectRatio="none">
+            <defs><linearGradient id="sg2" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#deecf9" stop-opacity="0.8"/><stop offset="100%" stop-color="#deecf9" stop-opacity="0"/></linearGradient></defs>
+            <polyline class="spark-fill" style="fill:url(#sg2)" points="0,20 10,24 20,18 30,14 40,12 50,9 60,7 70,9 80,5 90,4 100,3 100,36 0,36"/>
+            <polyline class="spark-line" points="0,20 10,24 20,18 30,14 40,12 50,9 60,7 70,9 80,5 90,4 100,3"/>
+          </svg>
+        </div>
+
+        <div class="metric-tile">
+          <div class="mt-header">
+            <span class="mt-title">Projects Shipped</span>
+            <span class="mt-period">Major initiatives</span>
+          </div>
+          <div class="mt-body">
+            <div class="mt-value"><span class="count-up" data-target="40">0</span><span class="mt-unit">+</span></div>
+            <div class="mt-trend trend-up">
+              <svg viewBox="0 0 10 10" width="10" height="10"><path d="M1 8L5 2L9 8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Cumulative
+            </div>
+          </div>
+          <svg class="mt-spark" viewBox="0 0 100 36" preserveAspectRatio="none">
+            <defs><linearGradient id="sg3" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#deecf9" stop-opacity="0.8"/><stop offset="100%" stop-color="#deecf9" stop-opacity="0"/></linearGradient></defs>
+            <polyline class="spark-fill" style="fill:url(#sg3)" points="0,30 10,28 20,26 30,22 40,24 50,18 60,15 70,11 80,13 90,8 100,5 100,36 0,36"/>
+            <polyline class="spark-line" points="0,30 10,28 20,26 30,22 40,24 50,18 60,15 70,11 80,13 90,8 100,5"/>
+          </svg>
+        </div>
+
+        <div class="metric-tile">
+          <div class="mt-header">
+            <span class="mt-title">Availability</span>
+            <span class="mt-period">Career uptime</span>
+          </div>
+          <div class="mt-body">
+            <div class="mt-value">99<span class="mt-unit">.9%</span></div>
+            <div class="mt-trend trend-stable">
+              <svg viewBox="0 0 10 10" width="10" height="10"><path d="M1 5H9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+              Stable
+            </div>
+          </div>
+          <svg class="mt-spark" viewBox="0 0 100 36" preserveAspectRatio="none">
+            <defs><linearGradient id="sg4" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#dff6dd" stop-opacity="0.8"/><stop offset="100%" stop-color="#dff6dd" stop-opacity="0"/></linearGradient></defs>
+            <polyline class="spark-fill" style="fill:url(#sg4)" points="0,6 10,5 20,7 30,4 40,6 50,5 60,3 70,5 80,7 90,4 100,5 100,36 0,36"/>
+            <polyline class="spark-line" style="stroke:var(--green)" points="0,6 10,5 20,7 30,4 40,6 50,5 60,3 70,5 80,7 90,4 100,5"/>
+          </svg>
+        </div>
+
+      </div><!-- /metrics -->
+
+
+      <!-- ── PROFILE / ABOUT ───────────────────────────────── -->
+      <section class="ai-section reveal" id="about">
+        <div class="ais-header">
+          <h2 class="ais-title">Profile</h2>
+          <div class="ais-subtitle">Background, experience summary, and properties</div>
+        </div>
+        <div class="about-grid-ai">
+          <div class="ai-card about-bio">
+            <div class="card-header">
+              <span class="card-title">Overview</span>
+              <div class="card-actions">
+                <span class="log-badge badge-success">Active</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <p>I'm a <strong>QA manager and technical program manager</strong> with 15+ years shipping software across healthcare, live entertainment, and gaming. I build the systems — automation frameworks, telemetry pipelines, CI/CD integrations, Agile processes — that let teams move fast without breaking things.</p>
+              <p>At <strong>Invene</strong>, I lead quality and delivery across multiple concurrent healthcare and SaaS client programs. I've architected AI-driven workflows that automated paper-based intake, built production monitoring that catches outages before customers do, and led CRM migrations that cut costs in half.</p>
+              <p>At <strong>Unity Technologies</strong>, I was promoted from QA Lead into program management, coordinating four Scrum teams (~25 engineers) to deliver live-entertainment and sports technology — including the world's first dual-destination live VR concert.</p>
+              <p>Outside work I build games: I compete in Ludum Dare game jams and maintain several indie Unity projects, which keeps my hands-on development skills sharp.</p>
+            </div>
+          </div>
+          <div class="about-side">
+            <div class="ai-card">
+              <div class="card-header"><span class="card-title">Properties</span></div>
+              <div class="card-body props-list">
+                <div class="prop-row"><span class="prop-key">Specialization</span><span class="prop-val">QA Leadership</span></div>
+                <div class="prop-row"><span class="prop-key">Program Mgmt</span><span class="prop-val">Technical TPM</span></div>
+                <div class="prop-row"><span class="prop-key">Automation</span><span class="prop-val">Playwright · Selenium</span></div>
+                <div class="prop-row"><span class="prop-key">CI/CD</span><span class="prop-val">Jenkins · Azure DevOps</span></div>
+                <div class="prop-row"><span class="prop-key">Industries</span><span class="prop-val">Healthcare · Gaming · Live</span></div>
+                <div class="prop-row"><span class="prop-key">Education</span><span class="prop-val">B.S. Game &amp; Interactive Dev</span></div>
+                <div class="prop-row"><span class="prop-key">College</span><span class="prop-val">Champlain College, 2010</span></div>
+              </div>
+            </div>
+            <div class="ai-card" style="margin-top:12px;">
+              <div class="card-header"><span class="card-title">Tags</span></div>
+              <div class="card-body">
+                <div class="tags-grid">
+                  <span class="ai-tag">QA Manager</span>
+                  <span class="ai-tag">Playwright</span>
+                  <span class="ai-tag">CI/CD</span>
+                  <span class="ai-tag">Scrum Master</span>
+                  <span class="ai-tag">Healthcare</span>
+                  <span class="ai-tag">Unity</span>
+                  <span class="ai-tag">Azure DevOps</span>
+                  <span class="ai-tag">TPM</span>
+                  <span class="ai-tag">Docker</span>
+                  <span class="ai-tag">AWS</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ── SKILLS / PERFORMANCE ──────────────────────────── -->
+      <section class="ai-section reveal" id="skills">
+        <div class="ais-header">
+          <h2 class="ais-title">Performance</h2>
+          <div class="ais-subtitle">Skill proficiency metrics by category</div>
+        </div>
+        <div class="ai-card">
+          <div class="card-header">
+            <span class="card-title">Skill Metrics — By Category</span>
+            <div class="card-actions">
+              <span style="font-size:11px; color:var(--text-3);">Hover rows to inspect</span>
+            </div>
+          </div>
+          <div class="card-body perf-chart">
+            <div class="perf-row">
+              <div class="perf-category">Test Automation</div>
+              <div class="perf-tools">Playwright · Selenium · Python · C# · API Testing · Charles Proxy</div>
+              <div class="perf-bar-wrap">
+                <div class="perf-bar" style="--w:92%; --c:var(--blue)"><div class="perf-bar-fill"></div></div>
+                <span class="perf-pct">Expert</span>
+              </div>
+            </div>
+            <div class="perf-row">
+              <div class="perf-category">CI/CD &amp; DevOps</div>
+              <div class="perf-tools">Jenkins · Azure DevOps · GitHub Actions · Docker · AWS</div>
+              <div class="perf-bar-wrap">
+                <div class="perf-bar" style="--w:88%; --c:var(--blue)"><div class="perf-bar-fill"></div></div>
+                <span class="perf-pct">Expert</span>
+              </div>
+            </div>
+            <div class="perf-row">
+              <div class="perf-category">Program Mgmt</div>
+              <div class="perf-tools">Scrum Master · Jira · Agile / SAFe · Roadmapping · Stakeholder Mgmt</div>
+              <div class="perf-bar-wrap">
+                <div class="perf-bar" style="--w:90%; --c:var(--purple)"><div class="perf-bar-fill"></div></div>
+                <span class="perf-pct">Expert</span>
+              </div>
+            </div>
+            <div class="perf-row">
+              <div class="perf-category">Data &amp; Observability</div>
+              <div class="perf-tools">SQL · Telemetry · Monitoring · Slack Alerting · RPA</div>
+              <div class="perf-bar-wrap">
+                <div class="perf-bar" style="--w:80%; --c:var(--teal)"><div class="perf-bar-fill"></div></div>
+                <span class="perf-pct">Advanced</span>
+              </div>
+            </div>
+            <div class="perf-row">
+              <div class="perf-category">Platforms</div>
+              <div class="perf-tools">Unity · iOS &amp; Android · Web · XR / VR</div>
+              <div class="perf-bar-wrap">
+                <div class="perf-bar" style="--w:75%; --c:var(--teal)"><div class="perf-bar-fill"></div></div>
+                <span class="perf-pct">Advanced</span>
+              </div>
+            </div>
+            <div class="perf-row">
+              <div class="perf-category">Domain Knowledge</div>
+              <div class="perf-tools">Healthcare / EHR · Live Entertainment · Mobile Gaming · SaaS / CRM</div>
+              <div class="perf-bar-wrap">
+                <div class="perf-bar" style="--w:95%; --c:var(--green)"><div class="perf-bar-fill"></div></div>
+                <span class="perf-pct">Expert</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ── EXPERIENCE / ACTIVITY LOG ────────────────────── -->
+      <section class="ai-section reveal" id="experience">
+        <div class="ais-header">
+          <h2 class="ais-title">Activity Log</h2>
+          <div class="ais-subtitle">Employment history and career operations</div>
+        </div>
+        <div class="ai-card">
+          <div class="card-header">
+            <span class="card-title">Operations</span>
+            <div class="card-actions">
+              <div class="filter-row">
+                <span class="filter-label">Timespan:</span>
+                <select class="filter-select">
+                  <option>Last 15 years</option>
+                  <option>Last 10 years</option>
+                  <option>Last 5 years</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="activity-log">
+            <div class="log-header">
+              <span class="lh-status">Status</span>
+              <span class="lh-time">Timeframe</span>
+              <span class="lh-op">Operation</span>
+              <span class="lh-resource">Resource</span>
+              <span class="lh-desc">Description</span>
+            </div>
+            <div class="log-entry reveal-row">
+              <span class="le-status"><span class="log-badge badge-success">Succeeded</span></span>
+              <span class="le-time">2023 — Present</span>
+              <span class="le-op">QA Manager</span>
+              <span class="le-resource">Invene</span>
+              <span class="le-desc">Lead QA and delivery across multiple concurrent healthcare and SaaS client programs — EHR, CRM, AI, and RPA platforms. Architect automation frameworks and CI/CD pipelines.</span>
+            </div>
+            <div class="log-entry reveal-row">
+              <span class="le-status"><span class="log-badge badge-success">Succeeded</span></span>
+              <span class="le-time">2022 — 2023</span>
+              <span class="le-op">QA Lead / TPM</span>
+              <span class="le-resource">Agiliti Health</span>
+              <span class="le-desc">Owned end-to-end QA for medical device management platform. Built Playwright automation suite from zero. Embedded in Agile team as QA and delivery lead.</span>
+            </div>
+            <div class="log-entry reveal-row">
+              <span class="le-status"><span class="log-badge badge-success">Succeeded</span></span>
+              <span class="le-time">2019 — 2022</span>
+              <span class="le-op">Technical Program Mgr</span>
+              <span class="le-resource">Unity Technologies</span>
+              <span class="le-desc">Promoted from QA Lead. Coordinated 4 Scrum teams (~25 engineers) delivering live-entertainment and sports technology. Led world's first dual-destination live VR concert.</span>
+            </div>
+            <div class="log-entry reveal-row">
+              <span class="le-status"><span class="log-badge badge-success">Succeeded</span></span>
+              <span class="le-time">2016 — 2019</span>
+              <span class="le-op">QA Lead</span>
+              <span class="le-resource">Unity Technologies</span>
+              <span class="le-desc">Led QA for live entertainment products. Built test strategy and automation infrastructure for sports, concert, and XR platforms across Unity runtime and cloud backend.</span>
+            </div>
+            <div class="log-entry reveal-row">
+              <span class="le-status"><span class="log-badge badge-success">Succeeded</span></span>
+              <span class="le-time">2009 — 2016</span>
+              <span class="le-op">QA Engineer → Lead</span>
+              <span class="le-resource">Various</span>
+              <span class="le-desc">Progressive QA engineering roles across gaming, web, and software industries. Developed deep expertise in test automation, Agile methodology, and CI/CD practices.</span>
+            </div>
+            <div class="log-entry reveal-row">
+              <span class="le-status"><span class="log-badge badge-info">Info</span></span>
+              <span class="le-time">2009</span>
+              <span class="le-op">Resource Initialized</span>
+              <span class="le-resource">Champlain College</span>
+              <span class="le-desc">B.S. Electronic Game and Interactive Development — Burlington, VT, 2006–2010. Career launched with strong software engineering and game dev foundation.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ── PROJECTS / DEPENDENCIES ───────────────────────── -->
+      <section class="ai-section reveal" id="projects">
+        <div class="ais-header">
+          <h2 class="ais-title">Dependencies</h2>
+          <div class="ais-subtitle">Projects, external integrations, and shipped applications</div>
+        </div>
+
+        <div class="dep-section-label">Professional Work</div>
+        <div class="dep-grid">
+
+          <div class="dep-card reveal-row">
+            <div class="dep-card-header">
+              <span class="dep-status-dot dot-green"></span>
+              <span class="dep-name">AI-Driven Intake System</span>
+              <span class="dep-badge">Healthcare</span>
+            </div>
+            <p class="dep-desc">Architected AI-assisted workflow automating paper-based patient intake. Built production monitoring with real-time Slack alerting and zero-downtime deployment pipeline.</p>
+            <div class="dep-metrics">
+              <div class="dep-metric"><span class="dm-label">Availability</span><span class="dm-val" style="color:var(--green)">Operational</span></div>
+              <div class="dep-metric"><span class="dm-label">Stack</span><span class="dm-val">Playwright · Azure DevOps · RPA · AI</span></div>
+            </div>
+          </div>
+
+          <div class="dep-card reveal-row">
+            <div class="dep-card-header">
+              <span class="dep-status-dot dot-green"></span>
+              <span class="dep-name">Live VR Concert Platform</span>
+              <span class="dep-badge">Live Entertainment</span>
+            </div>
+            <p class="dep-desc">Coordinated 4 Scrum teams to deliver world's first dual-destination live VR concert. Custom telemetry, QA strategy across Unity runtime, cloud backend, and XR headsets.</p>
+            <div class="dep-metrics">
+              <div class="dep-metric"><span class="dm-label">Availability</span><span class="dm-val" style="color:var(--green)">Shipped</span></div>
+              <div class="dep-metric"><span class="dm-label">Stack</span><span class="dm-val">Unity · XR · AWS · Jenkins</span></div>
+            </div>
+          </div>
+
+          <div class="dep-card reveal-row">
+            <div class="dep-card-header">
+              <span class="dep-status-dot dot-green"></span>
+              <span class="dep-name">Medical Device CMMS</span>
+              <span class="dep-badge">Healthcare</span>
+            </div>
+            <p class="dep-desc">End-to-end QA ownership for medical device management platform at Agiliti. Built Playwright automation suite from zero, achieving 80%+ coverage within the first year.</p>
+            <div class="dep-metrics">
+              <div class="dep-metric"><span class="dm-label">Coverage</span><span class="dm-val" style="color:var(--green)">80%+</span></div>
+              <div class="dep-metric"><span class="dm-label">Stack</span><span class="dm-val">Playwright · Python · Selenium</span></div>
+            </div>
+          </div>
+
+          <div class="dep-card reveal-row">
+            <div class="dep-card-header">
+              <span class="dep-status-dot dot-blue"></span>
+              <span class="dep-name">CRM Migration Pipeline</span>
+              <span class="dep-badge">SaaS</span>
+            </div>
+            <p class="dep-desc">Led data migration QA strategy for major CRM platform transition. Reduced operational costs by 50%. Validated data integrity across millions of records with automated checks.</p>
+            <div class="dep-metrics">
+              <div class="dep-metric"><span class="dm-label">Cost Reduction</span><span class="dm-val" style="color:var(--blue)">50%</span></div>
+              <div class="dep-metric"><span class="dm-label">Stack</span><span class="dm-val">SQL · Python · Azure DevOps</span></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="dep-section-label" style="margin-top:20px;">Personal Projects</div>
+        <div class="dep-grid">
+
+          <div class="dep-card reveal-row">
+            <div class="dep-card-header">
+              <span class="dep-status-dot dot-green"></span>
+              <span class="dep-name">Pigeon Parcels</span>
+              <span class="dep-badge">Ludum Dare 53</span>
+            </div>
+            <p class="dep-desc">72-hour game jam entry themed "Delivery." Solo engineering in Unity/C#; collaborated with teammate on 3D models, textures, and sound.</p>
+            <div class="dep-metrics">
+              <div class="dep-metric"><span class="dm-label">Status</span><span class="dm-val" style="color:var(--green)">Live</span></div>
+              <div class="dep-metric"><span class="dm-label">Stack</span><span class="dm-val">Unity · C# · Game Jam</span></div>
+            </div>
+            <div class="dep-links">
+              <a href="https://www.youtube.com/watch?v=vU9A2RwlNXY" target="_blank" class="dep-link">Watch ↗</a>
+            </div>
+          </div>
+
+          <div class="dep-card reveal-row">
+            <div class="dep-card-header">
+              <span class="dep-status-dot dot-blue"></span>
+              <span class="dep-name">CI/CD Bluetooth Status Light</span>
+              <span class="dep-badge">DevOps</span>
+            </div>
+            <p class="dep-desc">Physical desk light that turns red the moment a build breaks — instant ambient signal for the whole team without opening a dashboard.</p>
+            <div class="dep-metrics">
+              <div class="dep-metric"><span class="dm-label">Status</span><span class="dm-val" style="color:var(--blue)">Completed</span></div>
+              <div class="dep-metric"><span class="dm-label">Stack</span><span class="dm-val">Bluetooth · Hardware · CI/CD</span></div>
+            </div>
+            <div class="dep-links">
+              <a href="https://www.youtube.com/watch?v=r9Mq7QGMqOA" target="_blank" class="dep-link">Watch ↗</a>
+            </div>
+          </div>
+
+          <div class="dep-card reveal-row">
+            <div class="dep-card-header">
+              <span class="dep-status-dot dot-orange"></span>
+              <span class="dep-name">Space Tag &amp; Derby</span>
+              <span class="dep-badge">Experimental</span>
+            </div>
+            <p class="dep-desc">Two 6DOF flight simulation experiments. Derby reimagines the core mechanics around roller derby. Custom flight controllers in C# from scratch.</p>
+            <div class="dep-metrics">
+              <div class="dep-metric"><span class="dm-label">Status</span><span class="dm-val" style="color:var(--orange)">Experimental</span></div>
+              <div class="dep-metric"><span class="dm-label">Stack</span><span class="dm-val">Unity · C# · Physics · 6DOF</span></div>
+            </div>
+            <div class="dep-links">
+              <a href="https://www.youtube.com/watch?v=hDZQ8WYbMtc" target="_blank" class="dep-link">Space Tag ↗</a>
+              <a href="https://youtu.be/-7Xve4ulfkk?si=dwPZJrh1yx45gYQK" target="_blank" class="dep-link">Derby ↗</a>
+            </div>
+          </div>
+
+          <div class="dep-card reveal-row">
+            <div class="dep-card-header">
+              <span class="dep-status-dot dot-blue"></span>
+              <span class="dep-name">Fantasy Adventure</span>
+              <span class="dep-badge">Mobile</span>
+            </div>
+            <p class="dep-desc">Solo mobile game documented via sprint reviews, practicing Agile self-management. C# gameplay with AI-assisted character design for iOS and Android.</p>
+            <div class="dep-metrics">
+              <div class="dep-metric"><span class="dm-label">Status</span><span class="dm-val" style="color:var(--blue)">In Development</span></div>
+              <div class="dep-metric"><span class="dm-label">Stack</span><span class="dm-val">Unity · C# · iOS / Android</span></div>
+            </div>
+            <div class="dep-links">
+              <a href="https://docs.google.com/presentation/d/1DckIGCILzxpx5EJv71CZS-WLP1zwU4ZLaMBicqm1UGc/present?slide=id.p" target="_blank" class="dep-link">Sprint Review ↗</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- ── CONTACT / CONNECT ─────────────────────────────── -->
+      <section class="ai-section reveal" id="contact">
+        <div class="ais-header">
+          <h2 class="ais-title">Connect</h2>
+          <div class="ais-subtitle">Connection endpoints and resource health diagnostics</div>
+        </div>
+        <div class="contact-grid-ai">
+
+          <div class="ai-card">
+            <div class="card-header">
+              <span class="card-title">Connection Details</span>
+              <div class="card-actions">
+                <span class="log-badge badge-success">All Healthy</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="conn-row">
+                <div class="conn-icon">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <div class="conn-info">
+                  <div class="conn-label">Email</div>
+                  <a href="mailto:joel@jpelletier.com" class="conn-val">joel@jpelletier.com</a>
+                </div>
+                <span class="conn-status conn-active">Connected</span>
+              </div>
+              <div class="conn-row">
+                <div class="conn-icon">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </div>
+                <div class="conn-info">
+                  <div class="conn-label">LinkedIn</div>
+                  <a href="https://www.linkedin.com/in/joelpelletier/" target="_blank" class="conn-val">linkedin.com/in/joelpelletier</a>
+                </div>
+                <span class="conn-status conn-active">Connected</span>
+              </div>
+              <div class="conn-row">
+                <div class="conn-icon">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 10.8 8.207 12.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 22.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                </div>
+                <div class="conn-info">
+                  <div class="conn-label">GitHub</div>
+                  <a href="https://github.com/jcpelletier" target="_blank" class="conn-val">github.com/jcpelletier</a>
+                </div>
+                <span class="conn-status conn-active">Connected</span>
+              </div>
+              <div class="conn-row">
+                <div class="conn-icon">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+                </div>
+                <div class="conn-info">
+                  <div class="conn-label">YouTube</div>
+                  <a href="https://www.youtube.com/@joelpelletierjcp" target="_blank" class="conn-val">@joelpelletierjcp</a>
+                </div>
+                <span class="conn-status conn-active">Connected</span>
+              </div>
+              <div class="conn-row">
+                <div class="conn-icon">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <div class="conn-info">
+                  <div class="conn-label">Resume</div>
+                  <a href="JPelletier_Resume_2026.pdf" target="_blank" class="conn-val">JPelletier_Resume_2026.pdf</a>
+                </div>
+                <span class="conn-status conn-info-badge">Available</span>
+              </div>
+              <div class="conn-row">
+                <div class="conn-icon">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37a2 2 0 0 1 1.99-2H6.6a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div class="conn-info">
+                  <div class="conn-label">Phone</div>
+                  <span class="conn-val">603.540.8641</span>
+                </div>
+                <span class="conn-status conn-active">Available</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-right-col">
+            <div class="ai-card">
+              <div class="card-header"><span class="card-title">Resource Health</span></div>
+              <div class="card-body">
+                <div class="rh-health-row">
+                  <span class="rh-health-icon rh-healthy">✓</span>
+                  <div class="rh-health-info">
+                    <div class="rh-health-title">Availability</div>
+                    <div class="rh-health-desc">Open to new opportunities. No blocking issues.</div>
+                  </div>
+                </div>
+                <div class="rh-health-row" style="margin-top:12px;">
+                  <span class="rh-health-icon rh-healthy">✓</span>
+                  <div class="rh-health-info">
+                    <div class="rh-health-title">Response SLA</div>
+                    <div class="rh-health-desc">Typically responds within 24 hours.</div>
+                  </div>
+                </div>
+                <div class="rh-health-row" style="margin-top:12px;">
+                  <span class="rh-health-icon rh-healthy">✓</span>
+                  <div class="rh-health-info">
+                    <div class="rh-health-title">Location</div>
+                    <div class="rh-health-desc">East US — Boston Area. Remote-friendly.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ai-card" style="margin-top:12px;">
+              <div class="card-header"><span class="card-title">Recommended Roles</span></div>
+              <div class="card-body" style="padding:10px 16px;">
+                <div class="role-tag">QA Manager / Director</div>
+                <div class="role-tag">Technical Program Manager</div>
+                <div class="role-tag">Engineering Manager</div>
+                <div class="role-tag">Automation Architect</div>
+                <div class="role-tag">SDET Lead</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div><!-- /ai-scroll -->
+  </div><!-- /ai-main -->
+</div><!-- /ai-shell -->
+
+
+<script>
+/* ── Count-up ──────────────────────────────────────────────── */
+function animateCount(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const duration = 1400;
+  const start = performance.now();
+  (function tick(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.floor(ease * target);
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = target;
+  })(start);
+}
+
+/* ── Intersection Observer ─────────────────────────────────── */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // animate count-ups
+      entry.target.querySelectorAll('.count-up:not(.counted)').forEach(el => {
+        el.classList.add('counted');
+        animateCount(el);
+      });
+      // animate perf bars
+      entry.target.querySelectorAll('.perf-row').forEach((row, i) => {
+        setTimeout(() => row.classList.add('bar-loaded'), 120 * i);
+      });
+      // stagger reveal-rows
+      entry.target.querySelectorAll('.reveal-row').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), 60 * i);
+      });
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal, .ai-metrics, .ai-essentials').forEach(el => io.observe(el));
+// Also trigger on metric tiles
+document.querySelector('.ai-metrics') && io.observe(document.querySelector('.ai-metrics'));
+
+// Start count-ups in viewport immediately
+document.querySelectorAll('.count-up').forEach(el => {
+  const rect = el.getBoundingClientRect();
+  if (rect.top < window.innerHeight) {
+    el.classList.add('counted');
+    animateCount(el);
+  }
+});
+
+/* ── Sidebar active state on scroll ───────────────────────── */
+const sections = document.querySelectorAll('[id]');
+const navItems = document.querySelectorAll('.snav-item[data-section]');
+const scroll   = document.getElementById('mainScroll');
+
+function updateNav() {
+  let current = 'overview';
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top <= 120) current = sec.id;
+  });
+  navItems.forEach(item => {
+    item.classList.toggle('active', item.dataset.section === current);
+  });
+}
+scroll.addEventListener('scroll', updateNav, { passive: true });
+
+/* ── Essentials toggle ─────────────────────────────────────── */
+const essToggle = document.getElementById('essToggle');
+const essBody   = document.getElementById('essBody');
+let essOpen = true;
+essToggle.addEventListener('click', () => {
+  essOpen = !essOpen;
+  essBody.style.maxHeight = essOpen ? '' : '0px';
+  essBody.style.opacity   = essOpen ? '' : '0';
+  essBody.style.paddingTop    = essOpen ? '' : '0';
+  essBody.style.paddingBottom = essOpen ? '' : '0';
+  essBody.style.borderTop     = essOpen ? '' : 'none';
+  essToggle.textContent = essOpen ? 'Hide' : 'Show';
+});
+
+/* ── Refresh button ────────────────────────────────────────── */
+const refreshBtn = document.getElementById('refreshBtn');
+refreshBtn.addEventListener('click', () => {
+  refreshBtn.classList.add('spinning');
+  setTimeout(() => refreshBtn.classList.remove('spinning'), 1200);
+  // Re-trigger count-ups
+  document.querySelectorAll('.count-up.counted').forEach(el => {
+    el.classList.remove('counted');
+    animateCount(el);
+  });
+});
+
+/* ── Smooth scroll for sidebar nav ────────────────────────── */
+document.querySelectorAll('.snav-item[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+
+</body>
+</html>
