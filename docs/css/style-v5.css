@@ -192,21 +192,13 @@ nav {
   border-radius: 2px;
 }
 
-.hero-name-row {
-  display: flex;
-  align-items: flex-end;
-  gap: 10px;
-  margin-bottom: 18px;
-}
-.hero-name-row .hero-name {
-  margin-bottom: 0;
-}
 .hero-pronouns {
   font-family: var(--font-head);
   font-size: 0.78rem;
   font-weight: 500;
   color: var(--muted);
-  padding-bottom: 6px;
+  margin-top: -12px;
+  margin-bottom: 20px;
 }
 
 .hero-roles {
