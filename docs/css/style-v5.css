@@ -192,6 +192,15 @@ nav {
   border-radius: 2px;
 }
 
+.hero-pronouns {
+  font-family: var(--font-head);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--muted);
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
 .hero-roles {
   display: flex;
   flex-wrap: wrap;
