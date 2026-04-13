@@ -14,10 +14,10 @@
   --border-2:    #cbd5e1;
   --text:        #0f172a;
   --muted:       #64748b;
-  --accent:      #6366f1;
-  --accent-2:    #4f46e5;
-  --accent-dim:  rgba(99, 102, 241, 0.08);
-  --accent-glow: rgba(99, 102, 241, 0.18);
+  --accent:      #1d4ed8;
+  --accent-2:    #1e40af;
+  --accent-dim:  rgba(29, 78, 216, 0.08);
+  --accent-glow: rgba(29, 78, 216, 0.18);
   --green:       #10b981;
   --green-dim:   rgba(16, 185, 129, 0.1);
   --max:         1060px;
@@ -188,7 +188,7 @@ nav {
   bottom: 2px;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent), rgba(99,102,241,0));
+  background: linear-gradient(90deg, var(--accent), rgba(29,78,216,0));
   border-radius: 2px;
 }
 
@@ -212,7 +212,7 @@ nav {
 .hero-role-pill.primary {
   color: var(--accent);
   background: var(--accent-dim);
-  border-color: rgba(99, 102, 241, 0.25);
+  border-color: rgba(29, 78, 216, 0.25);
 }
 
 .hero-tagline {
@@ -425,8 +425,8 @@ nav {
   transition: border-color var(--t), box-shadow var(--t);
 }
 .bento-cell:hover {
-  border-color: rgba(99, 102, 241, 0.35);
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.07);
+  border-color: rgba(29, 78, 216, 0.35);
+  box-shadow: 0 4px 20px rgba(29, 78, 216, 0.07);
 }
 
 .bento-cell.span-2 { grid-column: span 2; }
@@ -661,8 +661,8 @@ nav {
   transition: all var(--t);
 }
 .proj-card:hover {
-  border-color: rgba(99, 102, 241, 0.4);
-  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.08);
+  border-color: rgba(29, 78, 216, 0.4);
+  box-shadow: 0 6px 24px rgba(29, 78, 216, 0.08);
   transform: translateY(-2px);
 }
 
@@ -796,7 +796,7 @@ nav {
   color: var(--text);
 }
 .contact-link-row:hover {
-  border-color: rgba(99, 102, 241, 0.4);
+  border-color: rgba(29, 78, 216, 0.4);
   background: var(--accent-dim);
   color: var(--accent);
   transform: translateX(4px);
