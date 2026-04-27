@@ -1,0 +1,14 @@
+name = "ai-analytics"
+main = "index.js"
+compatibility_date = "2024-09-23"
+
+# After running: wrangler kv:namespace create AI_VISITS
+# paste the returned id below
+[[kv_namespaces]]
+binding = "AI_VISITS"
+id = "6575cfcdd935470883e4b24ba67c05fd"
+
+# Set ADMIN_TOKEN as a secret (never commit it):
+#   wrangler secret put ADMIN_TOKEN
+# Then read visits at: https://ai.jpelletier.com/visits?token=YOUR_TOKEN
+# Or download CSV:      https://ai.jpelletier.com/visits/export?token=YOUR_TOKEN
