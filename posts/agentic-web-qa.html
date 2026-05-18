@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgenticWebQA: Self-Healing Browser Tests Powered by LLMs — Joel Pelletier</title>
+  <meta name="description" content="I built AgenticWebQA because I was tired of the same story playing out on every team I've worked with: brittle Selenium tests that shatter the moment a CSS class changes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style-v5.css" />
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Joel <span>Pelletier</span></a>
+    <div class="nav-links">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../JPelletier_Resume_2026.pdf" target="_blank" class="nav-resume">Resume</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main" class="post-page">
+  <div class="container">
+
+    <a href="../blog.html" class="post-back">← All posts</a>
+
+    <div class="post-meta">
+      <span class="blog-cat blog-cat-tech">Tech</span>
+      <span class="post-date">May 18, 2026</span>
+    </div>
+
+    <h1 class="post-title">AgenticWebQA: Self-Healing Browser Tests Powered by LLMs</h1>
+
+    <p class="post-lede">I built this because I was tired of the same story playing out on every team I've worked with: a QA engineer spends two days writing a Playwright test, it passes in CI, a developer ships a minor UI change three weeks later, and now half the test suite is red.</p>
+
+    <div class="post-divider"></div>
+
+    <div class="post-body">
+
+      <p>Not because the feature is broken — because a CSS class changed, or a button got a new ID, or someone rewrapped a form. The test knows nothing but "element not found."</p>
+
+      <p>Traditional automated tests are brittle by design. They record what the UI looked like at one moment in time and shatter the instant that moment passes.</p>
+
+      <p>I wanted something smarter.</p>
+
+      <h2>What AgenticWebQA Actually Does</h2>
+
+      <p>AgenticWebQA is an open-source browser automation agent that runs your web UI tests using a combination of Playwright and large language models. You describe what you want tested in plain English, and the agent figures out how to do it — clicking buttons, filling in forms, navigating between pages — using both DOM selectors and visual understanding of the screen.</p>
+
+      <p>The key word there is <em>agent</em>. This isn't record-and-playback. The LLM reads the page, reasons about what it sees, and decides what to do next.</p>
+
+      <h2>Self-Healing That Actually Works</h2>
+
+      <p>The self-healing in AgenticWebQA works differently from what most "auto-healing" products sell you. It doesn't silently patch broken selectors after the fact and call that intelligence. Instead, it runs in two phases:</p>
+
+      <p><strong>Phase 1 — Learn.</strong> The first time the agent runs a test, it explores the site using the LLM in full vision mode. As it succeeds at each step — clicking a login button, filling a username field — it records the DOM selectors that worked into a local hints file (<code>site_hints.json</code>). It also saves the full sequence of actions as a named, reusable function.</p>
+
+      <p><strong>Phase 2 — Execute.</strong> On every subsequent run, the agent tries the learned DOM selectors first. Playwright executes them directly — no model call needed. If a selector is gone because a developer changed something, the agent doesn't fail. It falls back to vision mode, figures out where the target is now, succeeds, and updates the hints for next time.</p>
+
+      <p>The result is a test that doesn't fail on the first minor UI change it encounters. It adapts in the same run, passes, and keeps the learned knowledge updated. <strong>You fix the test by running it, not by hunting down broken locators.</strong></p>
+
+      <h2>Written in Plain English</h2>
+
+      <p>Not everyone on a QA team is a developer. One of the explicit design goals here was that a less technical QA engineer should be able to write tests without knowing CSS selectors, XPath, or the DOM structure of the page being tested.</p>
+
+      <p>A test in AgenticWebQA looks like this:</p>
+
+<pre><code>Log in with username 'demo' and password 'demo123'.
+1. Fill in the username field
+2. Fill in the password field
+3. Click Log in
+
+Success criteria: You are on the Home page and see 'Welcome, demo'.</code></pre>
+
+      <p>That's it. No imports, no selectors, no waiting for elements. You describe the task the way you'd describe it to a human, and the agent works out the rest.</p>
+
+      <p>The GUI makes this even more accessible — a simple launcher where you type your prompt, pick your model, hit Run, and watch the browser do its thing. For teams that live in CI pipelines, the same test runs identically from the command line.</p>
+
+      <h2>First-Class CLI for CI/CD</h2>
+
+      <p>The GUI is for authoring and exploration. The CLI is for automation.</p>
+
+      <p>Every test in AgenticWebQA can be invoked as a standard shell command, which means it drops into any CI/CD pipeline that can run Python. GitHub Actions, Jenkins, CircleCI, local pre-commit hooks — it doesn't matter. You pass in your prompt, success criteria, and start URL as flags and you get a clean exit code back.</p>
+
+      <p>There's also a release test orchestrator (<code>release_test.py</code>) that chains multiple tests in sequence — unit tests, then login, then registration, then profile flows — and reports the result. Run it the same way locally as in CI.</p>
+
+      <p>Credentials stay out of the command line entirely through environment variables (<code>WEBQA_USERNAME</code>, <code>WEBQA_PASSWORD</code>) so secrets don't leak into logs.</p>
+
+      <h2>Dirt Cheap to Run</h2>
+
+      <p>This is where things get interesting compared to the commercial auto-healing test platforms.</p>
+
+      <p>AgenticWebQA is designed to be aggressive about cost. A typical test run with the recommended flags costs around <strong>$0.01 per step</strong>. A full login-to-profile-edit flow might run 8–12 steps on a good day — call it ten to fifteen cents per test execution.</p>
+
+      <p>That's not a ballpark. It's the actual output of the cost controls built into the agent: aggressive message pruning, stripping screenshot history to only the most recent frame, capped token budgets per response, and optional screenshot downscaling. You can tune all of it. You can also run cheaper models for simpler tests and reserve the heavy models for difficult pages or initial learning runs.</p>
+
+      <p>Compare that to SaaS auto-healing platforms that charge per test run, per seat, or per "healing event" — often in the hundreds or thousands of dollars a month. AgenticWebQA has no subscription, no per-seat pricing, no vendor controlling what you can run or how many tests you can have.</p>
+
+      <h2>No Lock-In</h2>
+
+      <p>AgenticWebQA is a Python project. It runs anywhere Python runs — your laptop, a Linux VM, a GitHub Actions runner, a cheap cloud instance. You own the code, you own the learned actions, you own the hints file.</p>
+
+      <p>The learned selector library is a plain JSON file you can read, edit, commit to source control, and share across your team. The reusable action functions are also plain JSON. Nothing is locked in a proprietary format or stored on someone else's server.</p>
+
+      <p>If you want to run it on a $6/month VPS, you can. If you want to run it on your local machine during development and push results to CI, you can. You're not buying into a service contract — you're running a tool.</p>
+
+      <h2>Supports Multiple LLMs</h2>
+
+      <p>Different tests have different needs, and different teams have different API relationships. AgenticWebQA supports both OpenAI and Anthropic model families out of the box.</p>
+
+      <p>The OpenAI options range from gpt-5-nano (cheap, fast, good for simple flows) up through gpt-5.1 (recommended for initial learning runs and complex pages). On the Anthropic side, you can choose from Claude Haiku (fast and economical), Claude Sonnet (the reliable workhorse for most tests), or Claude Opus (maximum reasoning for the hardest cases).</p>
+
+      <p>You pick the model per test. A registration flow that needs to handle dynamic form behavior might run on Opus. A smoke test checking that the nav links render correctly can run on Haiku at a fraction of the cost. The model is just a CLI flag or a dropdown selection — you're not locked into one provider's pricing or capability ceiling.</p>
+
+      <h2>Why I Built This</h2>
+
+      <p>I'd been watching the "AI-powered testing" space fill up with SaaS products making big promises about self-healing tests, and most of them were either expensive, opaque about how the healing actually worked, or both. The underlying technology — vision models, browser automation, LLM reasoning — was all available to anyone with an API key.</p>
+
+      <p>So I built the direct version: a small, transparent, self-hostable agent that does the actual work, costs almost nothing to run, and doesn't ask you to sign a contract to use it.</p>
+
+      <p>AgenticWebQA is still early. There's more to build — better reporting, broader action coverage, richer test orchestration. But the core loop works: describe a test in plain English, let the agent learn the site, and get tests that adapt instead of break.</p>
+
+      <p>If you're tired of maintaining brittle test suites, <a href="https://github.com/invene/AgenticWebQA" target="_blank">give it a look on GitHub</a>.</p>
+
+    </div>
+
+    <div class="post-footer">
+      <a href="../blog.html" class="post-back" style="margin-bottom: 0;">← All posts</a>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <span class="blog-cat blog-cat-tech">Tech</span>
+        <span class="post-date">May 18, 2026</span>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-text">© 2026 Joel Pelletier</span>
+    <span class="footer-text">
+      <a href="mailto:joel@jpelletier.com">joel@jpelletier.com</a> &nbsp;·&nbsp; Boston Area, MA
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>

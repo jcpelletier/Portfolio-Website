@@ -962,7 +962,10 @@ footer {
    BLOG — INDEX TEASER
    ============================================= */
 
-#blog { background: var(--bg); }
+#blog     { background: var(--bg-2); }
+#skills   { background: var(--bg-2); }
+#experience { background: var(--bg); }
+#projects { background: var(--bg-2); }
 
 .blog-grid {
   display: grid;
