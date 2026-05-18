@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Joel Pelletier</title>
+  <meta name="description" content="Thoughts on tech experiments, game development, and discoveries from Joel Pelletier." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style-v5.css" />
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Joel <span>Pelletier</span></a>
+    <div class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="JPelletier_Resume_2026.pdf" target="_blank" class="nav-resume">Resume</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-page-hero">
+  <div class="container">
+    <a href="index.html" class="blog-page-back">← Back to portfolio</a>
+    <h1 class="blog-page-title">The <em>Blog</em></h1>
+    <p class="blog-page-sub">Notes on tech experiments, game projects, and things I find interesting. Posted a couple of times a month.</p>
+  </div>
+</div>
+
+<main id="main" class="blog-listing">
+  <div class="container">
+    <div class="blog-listing-grid">
+
+      <a href="posts/camp-ketosis-devlog.html" class="blog-card fade-up">
+        <div class="blog-card-meta">
+          <span class="blog-card-date">May 1, 2026</span>
+          <span class="blog-cat blog-cat-games">Games</span>
+        </div>
+        <div class="blog-card-title">Camp Ketosis Devlog: Making a Ludum Dare Game in 72 Hours</div>
+        <p class="blog-card-excerpt">How my teammate and I went from Friday-night theme reveal to Sunday submission. What broke, what clicked, and what I'd do differently next jam.</p>
+        <span class="blog-card-cta">Read post →</span>
+      </a>
+
+      <a href="posts/playwright-framework.html" class="blog-card fade-up">
+        <div class="blog-card-meta">
+          <span class="blog-card-date">May 12, 2026</span>
+          <span class="blog-cat blog-cat-tech">Tech</span>
+        </div>
+        <div class="blog-card-title">Building a Playwright Test Framework from Scratch</div>
+        <p class="blog-card-excerpt">A walkthrough of how I structured a new Playwright suite for a client project — folder layout, page object patterns, CI integration, and the gotchas I hit along the way.</p>
+        <span class="blog-card-cta">Read post →</span>
+      </a>
+
+      <a href="posts/local-llm-experiments.html" class="blog-card fade-up">
+        <div class="blog-card-meta">
+          <span class="blog-card-date">Apr 22, 2026</span>
+          <span class="blog-cat blog-cat-tech">Tech</span>
+        </div>
+        <div class="blog-card-title">Six Weeks with Local LLMs: What I've Learned So Far</div>
+        <p class="blog-card-excerpt">Running Ollama and a rotation of open models on my home server. Notes on setup, which models hold up for coding tasks, and where they still fall short.</p>
+        <span class="blog-card-cta">Read post →</span>
+      </a>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-text">© 2026 Joel Pelletier</span>
+    <span class="footer-text">
+      <a href="mailto:joel@jpelletier.com">joel@jpelletier.com</a> &nbsp;·&nbsp; Boston Area, MA
+    </span>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
