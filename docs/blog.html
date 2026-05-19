@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Joel Pelletier</title>
+  <meta name="description" content="Thoughts on tech experiments, game development, and discoveries from Joel Pelletier." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style-v5.css" />
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Joel <span>Pelletier</span></a>
+    <div class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="JPelletier_Resume_2026.pdf" target="_blank" class="nav-resume">Resume</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-page-hero">
+  <div class="container">
+    <a href="index.html" class="blog-page-back">← Back to portfolio</a>
+    <h1 class="blog-page-title">The <em>Blog</em></h1>
+    <p class="blog-page-sub">Notes on tech experiments, game projects, and things I find interesting. Posted a couple of times a month.</p>
+  </div>
+</div>
+
+<main id="main" class="blog-listing">
+  <div class="container">
+    <div class="blog-listing-grid">
+
+      <a href="posts/agentic-web-qa.html" class="blog-card fade-up">
+        <div class="blog-card-meta">
+          <span class="blog-card-date">May 18, 2026</span>
+          <span class="blog-cat blog-cat-tech">Tech</span>
+        </div>
+        <div class="blog-card-title">AgenticWebQA: Self-Healing Browser Tests Powered by LLMs</div>
+        <p class="blog-card-excerpt">I built this because I was tired of QA test suites that shatter the moment a CSS class changes. An open-source agent that describes tests in plain English and adapts instead of breaking.</p>
+        <span class="blog-card-cta">Read post →</span>
+      </a>
+
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-text">© 2026 Joel Pelletier</span>
+    <span class="footer-text">
+      <a href="mailto:joel@jpelletier.com">joel@jpelletier.com</a> &nbsp;·&nbsp; Boston Area, MA
+    </span>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
