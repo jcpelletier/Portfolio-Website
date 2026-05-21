@@ -1046,6 +1046,56 @@ footer {
   margin-top: 2px;
 }
 
+/* =============================================
+   BROWSER WINDOW IMAGE FRAME (FOR PORTFOLIO)
+   ============================================= */
+
+.browser-frame {
+  max-width: 720px;          /* Matches your exact .post-body width */
+  width: 100%;
+  margin: 2rem auto;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);    /* Matches your theme's standard corners */
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05); /* Uses your text color for a soft shadow */
+}
+
+/* The top window bar */
+.browser-bar {
+  background: var(--bg-card); /* Matches your project card headers */
+  padding: 12px 16px;
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* The window control dots */
+.browser-bar .dot {
+  width: 10px;
+  height: 10px;
+  background: var(--border-2); /* Clean gray dots that match your theme */
+  border-radius: 50%;
+}
+
+/* The GIF/Image itself */
+.browser-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* The summary text underneath */
+.browser-frame figcaption {
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--muted);       /* Uses your theme's muted text color */
+  background-color: var(--bg-2); /* Matches your alternative section background */
+  border-top: 1px solid var(--border);
+  line-height: 1.5;
+}
+
 .blog-view-all {
   display: flex;
   justify-content: flex-end;

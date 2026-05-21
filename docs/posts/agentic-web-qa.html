@@ -58,6 +58,18 @@
 
       <p>The key word there is <em>agent</em>. This isn't record-and-playback. The LLM reads the page, reasons about what it sees, and decides what to do next.</p>
 
+      <figure class="browser-frame">
+      <div class="browser-bar">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+
+      <img src="../Resources/output2.gif" alt="Demo of AgenticWebQA healing a broken selector automatically" loading="lazy">
+
+      <figcaption>A simple login test.</figcaption>
+      </figure>
+
       <h2>Self-Healing That Actually Works</h2>
 
       <p>The self-healing in AgenticWebQA works differently from what most "auto-healing" products sell you. It doesn't silently patch broken selectors after the fact and call that intelligence. Instead, it runs in two phases:</p>
@@ -77,13 +89,25 @@
 <pre><code>Log in with username 'demo' and password 'demo123'.
 1. Fill in the username field
 2. Fill in the password field
-3. Click Log in
+3. Click Log inFirst-Class CLI for CI/CD
 
 Success criteria: You are on the Home page and see 'Welcome, demo'.</code></pre>
 
       <p>That's it. No imports, no selectors, no waiting for elements. You describe the task the way you'd describe it to a human, and the agent works out the rest.</p>
 
       <p>The GUI makes this even more accessible. It's a simple launcher where you type your prompt, pick your model, hit Run, and watch the browser do its thing. For teams that live in CI pipelines, the same test runs identically from the command line.</p>
+
+      <figure class="browser-frame">
+      <div class="browser-bar">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+      
+      <img src="../Resources/CheckForLogin.png" alt="Example of a simple login test featureing username and password string function prompt injection" loading="lazy">
+      
+      <figcaption>The definition for our login test.</figcaption>
+      </figure>
 
       <h2>First-Class CLI for CI/CD</h2>
 
@@ -92,6 +116,28 @@ Success criteria: You are on the Home page and see 'Welcome, demo'.</code></pre>
       <p>Every test in AgenticWebQA can be invoked as a standard shell command, which means it drops into any CI/CD pipeline that can run Python; GitHub Actions, Jenkins, CircleCI, local pre-commit hooks. You pass in your prompt, success criteria, and start URL as flags and you get a clean exit code back.</p>
 
       <p>Credentials can stay out of the command line entirely through environment variables (<code>WEBQA_USERNAME</code>, <code>WEBQA_PASSWORD</code>) so secrets don't leak into logs. The AI is also able to variablize parts of your prompt including tools like string functions you can insert that will modify the prompt based on an AgenticWebQA string function you create. These are for things like using current time/date, generating random strings, or anything else you can code logic for that results in a string being output.</p>
+
+      <p>The Login test from the previous section becomes a single shell command. Using the <strong>Visual (LLM)</strong> success type — matching the GUI shown in the screenshots above — the LLM checks the page visually to determine if the success criteria is met:</p>
+
+<pre><code>agenticwebqa run \
+  --prompt "Log in with username 'demo' and password 'demo123'. \
+1. Fill in the username field \
+2. Fill in the password field \
+3. Click Log in" \
+  --visual-llm-success "You are on the Home page and see 'Welcome, demo'" \
+  --url https://example.com/login \
+  --model claude-sonnet-4-20250514</code></pre>
+
+      <p>If you want to skip the LLM call that <strong>Visual LLM</strong> success type requires you can go with something like <strong>Selector Present</strong> success type, and just pass in a CSS selector to check for instead:</p>
+
+<pre><code>agenticwebqa run \
+  --prompt "Log in with username 'demo' and password 'demo123'. \
+1. Fill in the username field \
+2. Fill in the password field \
+3. Click Log in" \
+  --selector-present-success ".welcome-banner" \
+  --url https://example.com/login \
+  --model claude-sonnet-4-20250514</code></pre>
 
       <h2>Dirt Cheap to Run</h2>
 

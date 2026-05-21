@@ -1,7 +1,22 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:www.jpelletier.com)"
+      "WebFetch(domain:www.jpelletier.com)",
+      "Bash(python -c \":*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(ls -la /c/Users/genes/GitHub/Portfolio-Website/*.pdf)",
+      "Bash(git check-ignore:*)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(python -m http.server 8080)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/)",
+      "Bash(curl *)",
+      "PowerShell(python --version)",
+      "PowerShell(Start-Process python -ArgumentList \"-m http.server 8080\" -WorkingDirectory \"C:\\\\Users\\\\genes\\\\GitHub\\\\Portfolio-Website\" -WindowStyle Hidden)"
     ]
   }
 }
