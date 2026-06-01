@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediaManagement: An LLM-Powered Pipeline for Ripping, Sorting, and Tagging My Home Media Content | Joel Pelletier</title>
+  <meta name="description" content="How I turned a stack of DVDs, Blu-rays, and CDs into a fully automated library on my home server using udev, MakeMKV, DeepSeek, TMDB, and Whisper." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style-v5.css" />
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Joel <span>Pelletier</span></a>
+    <div class="nav-links">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../JPelletier_Resume_2026.pdf" target="_blank" class="nav-resume">Resume</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main" class="post-page">
+  <div class="container">
+
+    <a href="../blog.html" class="post-back">← All posts</a>
+
+    <div class="post-meta">
+      <span class="blog-cat blog-cat-workflow">Workflow Automation</span>
+      <span class="post-date">May 31, 2026</span>
+    </div>
+
+    <h1 class="post-title">MediaManagement: An LLM-Powered Pipeline for Ripping, Sorting, and Tagging My Home Media Content</h1>
+
+    <p class="post-lede">I own a lot of physical media; DVDs, Blu-rays, CDs that pre-date streaming. I also run a home media server. The gap between those two facts used to be a long, manual, error-prone process. So I automated the entire thing.</p>
+
+    <div class="post-divider"></div>
+
+    <div class="post-body">
+
+      <p>The result is <a href="https://github.com/jcpelletier/MediaManagement" target="_blank">MediaManagement</a>, a collection of shell and Python scripts that takes a disc from "just inserted into the drive" to "playing on the TV with the right title, year, season, episode number, and matching subtitles" without me touching it.</p>
+
+      <p>This post is a tour of how the pipeline works and the reasoning behind a few of the choices.</p>
+
+      <h2>The Problem</h2>
+
+      <p>Building a media library by hand is the kind of work that sounds simple and then drowns you. Each disc needs to be ripped. Each rip produces a folder named something like <code>BLURAY_DISC_TITLE_2</code> with twelve <code>.mkv</code> files inside, only one of which is the actual movie. TV box sets are worse. A season might be split across four discs, each disc has six unlabeled episodes, and the filenames are <code>title_t00.mkv</code> through <code>title_t05.mkv</code>.</p>
+
+      <p>Doing this by hand for a few hundred discs means a few hundred trips to TMDB, IMDB, and a careful renaming session. You end up watching parts of episodes to confirm which wastes a lot of time. It's not interesting work, and it's exactly the kind of pattern-matching task LLMs are now genuinely good at.</p>
+
+      <h2>The Pipeline, End to End</h2>
+
+      <p>Here's what happens when I insert a disc into the drive:</p>
+
+      <ol>
+        <li><strong>udev</strong> detects the disc insert and triggers a shell script in <code>/opt/rip/</code>.</li>
+        <li>For a DVD or Blu-ray, <strong>MakeMKV</strong> rips every title on the disc into <code>/mnt/media/Video/&lt;disc_title&gt;/</code>. For an audio CD, <strong>abcde</strong> rips to FLAC directly into the music library.</li>
+        <li>The disc ejects when it's done. I swap it for the next one.</li>
+        <li>A Jenkins job runs on a schedule and calls <code>Sort_Rips.py</code>. It identifies each ripped folder as a movie using <strong>DeepSeek</strong> and verifies the guess against <strong>TMDB</strong>. Identified movies get moved into <code>/mnt/media/Media/Movies/&lt;Title (Year)&gt;/</code> with the largest video file renamed to match. Folders that can't be verified are left alone and reported in the run summary.</li>
+        <li>Folders that look like TV episodes are routed to a second Jenkins job that runs <code>Sort_TV.py</code>. Identified episodes get moved into the show's library folder (e.g. <code>Show Name - S01E03 - Episode Title.mkv</code>); anything that can't be identified lands in <code>Extras/</code>.</li>
+        <li>Optional follow-up jobs convert formats with <code>Convert_Video.py</code>, demux subtitle tracks straight out of the rip with <code>Extract_Subs.py</code>, and auto-sync misaligned <code>.srt</code> files with <code>AudioSync_Subs.py</code>.</li>
+      </ol>
+
+      <p>From my perspective: insert a disc, walk away. Come back later, the movie is in the library with the right metadata.</p>
+
+      <figure class="browser-frame">
+      <div class="browser-bar">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+
+      <img src="../Resources/JellyfinHomePage.png" alt="Jellyfin home page showing the library populated with correctly titled and tagged movies and TV shows" loading="lazy">
+
+      <figcaption>The Jellyfin home page. Every title here came in through the pipeline.</figcaption>
+      </figure>
+
+      <h2>Why an LLM for File Identification</h2>
+
+      <p>This was the part I was least sure about going in. File identification feels like it should be a solved problem. There are libraries that parse release names, there's the TMDB search API, there are existing tools like Filebot. So why throw a language model at it?</p>
+
+      <p>Because there is no ubiquitous metadata standard for movies and TV shows the way MusicBrainz and CDDB exist for music CDs. The best you can hope for is a folder name that vaguely points at the title. A ripped folder might give you:</p>
+
+      <ul>
+        <li>A folder name that's a hint, a lie, or completely uninformative (<code>BLURAY_4K_DISC_TITLE_1</code>).</li>
+        <li>A list of video files with sizes. The largest is usually the feature, the others are bonus features, trailers, or menu loops.</li>
+        <li>An <code>.srt</code> file inside the folder, or an embedded subtitle track with the first few minutes of dialogue.</li>
+        <li>No subtitles at all, in which case I sample the audio and run it through <strong>faster-whisper</strong> for a transcript.</li>
+      </ul>
+
+      <p>An LLM is genuinely good at looking at a pile of weak signals like that and producing a confident guess. Then I verify against TMDB, which catches the hallucinations. If the model says "The Matrix (1999)" and TMDB confirms a movie by that title and year exists, the rename proceeds. If it can't be verified above a confidence threshold, the folder is left alone and reported in the summary.</p>
+
+      <p>I picked DeepSeek as the model. It's cheap, it's fast, it does structured output well, and the cost per identification rounds to nothing.</p>
+
+      <h2>The TV Pipeline Is Where It Gets Interesting</h2>
+
+      <p>Movies are the easy case. TV is where the design has to actually be thoughtful.</p>
+
+      <p>A ripped TV folder looks like <code>DS9S1D2</code> with six untitled <code>.mkv</code> files inside. A human reads that as "Deep Space Nine, Season 1, Disc 2." The script treats it with a lot more suspicion, because one confident LLM guess per file turned out not to be enough. Language models will cheerfully claim a wrong-but-plausible episode at 0.95 confidence based on a snippet of mid-episode dialogue that mentions a recurring prop.</p>
+
+      <p>So <code>Sort_TV.py</code> runs in two phases. Per file, it gathers the best evidence it can: a subtitle excerpt sampled past the first five minutes (recurring intros are noise), or a Whisper transcript when subtitles aren't available. Then it asks DeepSeek to identify the episode against TMDB's episode list for the season. The result is a proposed assignment per file, not a rename. Nothing moves yet.</p>
+
+      <p>The second phase reconciles the whole folder at once on a single principle: <em>order is more trustworthy than any individual confident guess</em>. Disc rips preserve episode order. Title <code>t02</code> comes before <code>t03</code> even when the LLM mis-identifies the contents. The reconciler filters featurettes and extras by runtime, then finds the starting episode that best fits the file ordering against the high-confidence anchors from phase one. Where order and a confident LLM disagree, order wins. Folders with no high-confidence anchor refuse to rename rather than guess.</p>
+
+      <h2>Subtitles Come Straight Off the Disc</h2>
+
+      <p>MakeMKV preserves every subtitle track during the rip: text tracks (SRT, ASS), Blu-ray PGS image tracks, DVD <code>VobSub</code> tracks. They all come along as embedded streams inside the resulting <code>.mkv</code>. <code>Extract_Subs.py</code> enumerates streams with <code>ffprobe</code>, demuxes each one with <code>ffmpeg</code>, and writes sidecar files Jellyfin picks up automatically: <code>MovieName.en.srt</code>, <code>MovieName.en.sup</code>, <code>MovieName.und.sub</code>, and so on. Output extensions and codecs are chosen per track, and filenames are deterministic so re-runs are idempotent.</p>
+
+      <p>The result is subtitles that are perfectly timed to the video, because they came from the same source, in every language and variant the disc actually shipped with, with no third-party download required.</p>
+
+      <h2>Observability, Because This Is Running Unattended</h2>
+
+      <p>The whole pipeline runs without me watching it, which means I need to know if something goes wrong without going to look. The instrumentation has three layers: orchestration, structured logging, and realtime alerts. Each answers a different question.</p>
+
+      <p>The first layer is <strong>Jenkins</strong>, which is the orchestrator and the operations console. Every Python script in the repo is wired up as its own scheduled job, so I get a job history, per-run console output, and a failure discord message. When something needs my attention, this is where I go to read the stack trace and either re-run the job or fix the input. There's no point reinventing a job runner when one is right there.</p>
+
+      <figure class="browser-frame">
+      <div class="browser-bar">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+
+      <img src="../Resources/JenkinsMediaManagement.png" alt="Jenkins dashboard showing the MediaManagement jobs for sorting movies, sorting TV, converting video, extracting subtitles, and syncing subtitles" loading="lazy">
+
+      <figcaption>The Jenkins dashboard. Each script in the repo is wired up as its own scheduled job.</figcaption>
+      </figure>
+
+      <p>Underneath Jenkins is <strong>Azure Application Insights</strong>. The rip scripts emit structured events directly: start, 10% progress milestones, finish, and corruption indicators flagged from the MakeMKV output (damaged VOB blocks, read errors, ripper-warning strings) each get their own event type, so I can tell from a query whether a long rip is making progress, stuck, or quietly producing garbage. The sort jobs run under Jenkins and post a single <code>BuildCompleted</code> event per run via a post-build hook, which gives me the result and a link back to the console output. Everything lands in the same workspace, and it's where I go when I want to ask "what was actually happening on the box at 2 AM."</p>
+
+      <figure class="browser-frame">
+      <div class="browser-bar">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+
+      <img src="../Resources/AzureLogs_MediaManagement.png" alt="Azure Application Insights logs showing rip progress milestones and pipeline events from the MediaManagement scripts" loading="lazy">
+
+      <figcaption>Application Insights queries against the rip and sort scripts. Progress milestones, failures, and Discord-triggering events all land here.</figcaption>
+      </figure>
+
+      <p>Jenkins and App Insights are both pull-based. I have to go look. That's the gap the third layer fills: a <strong>Discord webhook</strong> fed by the same scripts. A successful rip posts a one-line note. A finished sort job posts the list of titles it identified and the list it couldn't. A corruption indicator posts an alert. I get a push notification on my phone, and if there's nothing to do I dismiss it without opening anything.</p>
+
+      <figure class="browser-frame">
+      <div class="browser-bar">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+
+      <img src="../Resources/Discord_MediaManagement.png" alt="Discord channel showing notifications from the MediaManagement pipeline as discs finish ripping and shows finish sorting" loading="lazy">
+
+      <figcaption>The Discord channel. Every rip, sort job, and corruption warning posts here so I get a notification on my phone.</figcaption>
+      </figure>
+
+      <h2>Why I Built It This Way</h2>
+
+      <p>A few design choices were deliberate enough to call out.</p>
+
+      <p><strong>Remove Human Steps from the Process.</strong> Ripping an entire show with 7 seasons was turning in to a very time intensive chore. The primary goal has been to reduce the amount of human time this process takes.</p>
+
+      <p><strong>The LLM Kinda has the Final Word.</strong> Every model output is gated by TMDB verification or a confidence threshold. If the model is confidently wrong, the verification catches it. If the model is uncertain, the file is left alone and reported. I'd rather the pipeline skip a file than rename it incorrectly. Bad metadata is harder to detect and fix than missing metadata.</p>
+
+      <p><strong>Cheap Models by Default.</strong> DeepSeek costs essentially nothing per call, and the task ("given this dialogue, which of these 22 episodes is it") doesn't need a frontier model to get right. The script exposes separate <code>--model</code> and <code>--blind-model</code> flags so I can swap in something heavier for the harder cases (no folder hint, content not in TMDB), but in practice the default <code>deepseek-chat</code> handles both paths well enough that I haven't needed to.</p>
+
+      <p><strong>The pipeline does a job the media server can't.</strong> Plex, Emby, and Jellyfin all rely on filename and folder parsing to identify content. Hand any of them a folder of <code>title_t00.mkv</code> through <code>title_t05.mkv</code> and they have nothing to match against. They don't read subtitles, transcribe audio, or reason about file sizes. MediaManagement does the identification step upstream, turning raw rips into canonical filenames (<code>Show Name - S01E03 - Episode Title.mkv</code>) that any media server, VLC, or a TV reading off a USB stick will then recognize on first scan. The library on disk stays the source of truth.</p>
+
+      <h2>What's Next</h2>
+
+      <p>The pipeline is mostly in a production ready state for movies. A few things I want to work on next:</p>
+
+      <ul>
+        <li><strong>Work more on Show Tagging Accuracy.</strong> TV show tagging has only more recently started working with a high level of accuracy. I need to process more content to continue to validate.</li>
+        <li><strong>Music Tagging Improvements.</strong> CD rips currently land in the music library with whatever <code>abcde</code> gets from MusicBrainz. It has been highly accuracte, but has some issues. CDs with multiple artists for example currently pose an organizational challenge sometimes producing multiple album listings in Jellyfin. </li>
+		<li><strong>Calculate Accuracy.</strong> I need to build a test that runs against my existing library and rates the current process for how accurately it would tag everything with its current configuration. </li>
+      </ul>
+
+      <p>The repo is on GitHub if you want to look at the code or steal pieces of it for your own setup: <a href="https://github.com/jcpelletier/MediaManagement" target="_blank">jcpelletier/MediaManagement</a>. Most of the scripts are standalone. <code>Sort_Rips.py</code> and <code>Sort_TV.py</code> will run on any folder of ripped video files, you don't need the rest of the setup to use them.</p>
+
+    </div>
+
+    <div class="post-footer">
+      <a href="../blog.html" class="post-back" style="margin-bottom: 0;">← All posts</a>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <span class="blog-cat blog-cat-workflow">Workflow Automation</span>
+        <span class="post-date">May 31, 2026</span>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-text">© 2026 Joel Pelletier</span>
+    <span class="footer-text">
+      <a href="mailto:joel@jpelletier.com">joel@jpelletier.com</a> &nbsp;·&nbsp; Boston Area, MA
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>
