@@ -35,7 +35,7 @@
 
     <div class="post-meta">
       <span class="blog-cat blog-cat-workflow">Workflow Automation</span>
-      <span class="post-date">May 31, 2026</span>
+      <span class="post-date">June 1, 2026</span>
     </div>
 
     <h1 class="post-title">MediaManagement: An LLM-Powered Pipeline for Ripping, Sorting, and Tagging My Home Media Content</h1>
@@ -168,11 +168,11 @@
 
       <p><strong>Remove Human Steps from the Process.</strong> Ripping an entire show with 7 seasons was turning in to a very time intensive chore. The primary goal has been to reduce the amount of human time this process takes.</p>
 
-      <p><strong>The LLM Kinda has the Final Word.</strong> Every model output is gated by TMDB verification or a confidence threshold. If the model is confidently wrong, the verification catches it. If the model is uncertain, the file is left alone and reported. I'd rather the pipeline skip a file than rename it incorrectly. Bad metadata is harder to detect and fix than missing metadata.</p>
+      <p><strong>Make the LLM Conservative</strong> Every model output is gated by TMDB verification or a confidence threshold. If the model is confidently wrong, the verification catches it. If the model is uncertain, the file is left alone and reported. I'd rather the pipeline skip a file than rename it incorrectly. Bad metadata is harder to detect and fix than missing metadata.</p>
 
       <p><strong>Cheap Models by Default.</strong> DeepSeek costs essentially nothing per call, and the task ("given this dialogue, which of these 22 episodes is it") doesn't need a frontier model to get right. The script exposes separate <code>--model</code> and <code>--blind-model</code> flags so I can swap in something heavier for the harder cases (no folder hint, content not in TMDB), but in practice the default <code>deepseek-chat</code> handles both paths well enough that I haven't needed to.</p>
 
-      <p><strong>The pipeline does a job the media server can't.</strong> Plex, Emby, and Jellyfin all rely on filename and folder parsing to identify content. Hand any of them a folder of <code>title_t00.mkv</code> through <code>title_t05.mkv</code> and they have nothing to match against. They don't read subtitles, transcribe audio, or reason about file sizes. MediaManagement does the identification step upstream, turning raw rips into canonical filenames (<code>Show Name - S01E03 - Episode Title.mkv</code>) that any media server, VLC, or a TV reading off a USB stick will then recognize on first scan. The library on disk stays the source of truth.</p>
+      <p><strong>The Pipeline does a Job the Media Server Can't.</strong> Plex, Emby, and Jellyfin all rely on filename and folder parsing to identify content. Hand any of them a folder of <code>title_t00.mkv</code> through <code>title_t05.mkv</code> and they have nothing to match against. They don't read subtitles, transcribe audio, or reason about file sizes. MediaManagement does the identification step upstream, turning raw rips into canonical filenames (<code>Show Name - S01E03 - Episode Title.mkv</code>).</p>
 
       <h2>What's Next</h2>
 
@@ -192,7 +192,7 @@
       <a href="../blog.html" class="post-back" style="margin-bottom: 0;">← All posts</a>
       <div style="display: flex; gap: 8px; align-items: center;">
         <span class="blog-cat blog-cat-workflow">Workflow Automation</span>
-        <span class="post-date">May 31, 2026</span>
+        <span class="post-date">June 1, 2026</span>
       </div>
     </div>
 
