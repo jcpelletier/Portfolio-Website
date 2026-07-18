@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://jpelletier.com/sitemap.xml
+
 # AI crawlers explicitly welcomed — this site owner wants AI indexing
 User-agent: GPTBot
 Allow: /
