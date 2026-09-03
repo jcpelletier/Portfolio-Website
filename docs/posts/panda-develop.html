@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panda-Develop | Joel Pelletier</title>
+  <meta name="description" content="An in-house coding agent front end and local-LLM GPU arbiter in one, built because I was unhappy with the existing options available to me for local models" />
+  <link rel="canonical" href="https://jpelletier.com/posts/panda-develop.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style-v5.css" />
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Joel <span>Pelletier</span></a>
+    <div class="nav-links">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../JPelletier_Resume_2026.pdf" target="_blank" class="nav-resume">Resume</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main" class="post-page">
+  <div class="container">
+
+    <a href="../blog.html" class="post-back">&larr; All posts</a>
+
+    <div class="post-meta">
+      <span class="blog-cat blog-cat-tech">Tech</span>
+      <span class="post-date">September 3, 2026</span>
+    </div>
+
+    <h1 class="post-title">Panda-Develop</h1>
+
+    <p class="post-lede">OpenAI released GPT&#8209;4.1 on April&nbsp;14, 2025. I have the same computer today that I had then, and today there are models running <em>on</em> that computer that are better than GPT&#8209;4.1.</p>
+
+    <figure class="post-hero">
+      <img src="../Resources/panda-develop/app-icon.png"
+           alt="The Panda-Develop app icon: a flat navy-and-white panda face" />
+    </figure>
+
+    <div class="post-divider"></div>
+
+    <div class="post-body">
+
+      <div class="rig-strip">
+        <div><b>RTX 3090</b><span>24&nbsp;GB, shared with work and games</span></div>
+        <div><b>Qwen3.8 27B</b><span>131,072 ctx &middot; vision &middot; thinking</span></div>
+        <div><b>One daemon</b><span>GPU arbiter + agent loop + tray</span></div>
+      </div>
+
+      <p><strong>Panda-Develop is my in-house coding agent front end and local-LLM arbiter in one.</strong> It is a FastAPI daemon on <code>127.0.0.1</code> with two faces: a system tray icon that owns the GPU, and a native Qt desktop client. The rest of this post is a tour of what it does and why each piece exists.</p>
+
+      <h2>Why Build Your Own?</h2>
+
+      <p>I built this because I am annoyed by the agentic coding front ends currently available to me. Either I don&rsquo;t like the interface, or, worse, it doesn&rsquo;t support something I need.</p>
+
+      <p>The issue I hit consistently is memory management when running local models on my primary machine. I use this box for work and for gaming, so it has a very strong graphics card with a lot of video memory, which makes it ideal for local models. The problem is that tools like Ollama and LM Studio don&rsquo;t give you enough control over loading and unloading without extra manual steps.</p>
+
+      <p>My tool fuses the two halves: a chat front end, and a tray service that manages the communication with Ollama and ComfyUI. What the pairing buys is one component that knows what is allowed to hold the card, which means it can hand a conversation as much context as the machine can currently spare instead of a number I picked once and forgot.</p>
+
+      <p>The other half of the motivation is that third-party plugins are built for frontier cloud models and degrade badly on local ones. Each of those failure modes turned into a design decision:</p>
+
+      <table class="post-table"><thead><tr><th>What breaks on a local model</th><th>What I did instead</th></tr></thead><tbody><tr><td>Multi-thousand-token system prompts eat the usable context</td><td>Short system prompt, measured context budget</td></tr><tr><td>20+&nbsp;tools &rarr; selection errors and schema bloat</td><td>Six base tools; everything else opted into per conversation</td></tr><tr><td>Fuzzy search/replace blocks local models emit incorrectly</td><td>Whole-file write plus line-anchored replace, validated with retry</td></tr><tr><td>Silent context overflow, then degradation into nonsense</td><td>Explicit compaction, marked in the transcript</td></tr><tr><td>No awareness of VRAM; happily OOMs the box</td><td>VRAM arbitration is a first-class feature</td></tr><tr><td>Model load/unload is someone else&rsquo;s problem</td><td>It is <em>this</em> tool&rsquo;s core job</td></tr></tbody></table>
+
+      <h2>Provisioning, Not Just Loading</h2>
+
+      <p>Loading a local model is normally presented as a one-click affair. Pick a model, it loads, off you go. On a card that is also running your desktop, it is a provisioning decision. The more memory you give to the model, the less you have to actually run your machine and the software you are building. I had to create an algorithm for the tool to use to ensure it doesn't brick the machine.</p>
+
+      <pre><code>Qwen3.8 27B, weights          17.36 GB
+KV cache, per 8,192 tokens   + 0.30 GB
+desktop and browser, in use  ~ 2.00 GB
+headroom floor, reserved     + 1.50 GB
+                               on a 24 GB card</code></pre>
+
+      <p>Image generation sharpens all this, though it isn&rsquo;t the only reason any of it exists. ComfyUI wants around 10&nbsp;GB and the coding model wants 17 to 20, so the two are declared conflicting, and <em>declared conflicts are checked before free space</em>. A freshly started ComfyUI is only sitting on about 0.2&nbsp;GB, so there looks to be plenty of room right up until the first image generation takes the card out from under everything. When something is in the way, the daemon says so and asks rather than auto-killing:</p>
+
+      <blockquote>
+        <p>Loading this model needs 19.6&nbsp;GB of VRAM.<br />
+        ComfyUI (image gen) (~10.0&nbsp;GB) is holding the GPU and cannot run at the same time.<br />
+        Stop it and continue?</p>
+      </blockquote>
+
+      <p>The tray icon answers the resulting question without my clicking anything: <strong>what is holding the card right now?</strong> It stamps a letter per resident service and uses colour as the modifier.</p>
+
+      <table class="post-table"><thead><tr><th>Icon</th><th>Meaning</th></tr></thead><tbody><tr><td>faint grey ring</td><td>nothing resident, the card is free</td></tr><tr><td><b>L</b> green</td><td>an LLM is resident</td></tr><tr><td><b>C</b> blue</td><td>ComfyUI (image gen) is up</td></tr><tr><td><b>LC</b> purple</td><td>both, contended</td></tr><tr><td><b>L</b> / <b>C</b> amber</td><td>starting, stopping, or loading</td></tr><tr><td><b>L</b> red</td><td>resident but spilled to CPU (~37% slower)</td></tr><tr><td><b>?</b> grey</td><td>cannot reach the daemon</td></tr></tbody></table>
+
+      <p>The tray menu is a flat list of <em>profiles</em>. A profile is a named model-plus-settings combination, so &ldquo;same model, bigger context&rdquo; is another one-click entry rather than a nested menu.</p>
+
+      <h2>A Tour</h2>
+
+      <p>The front end is conversation-first. Every session is stored in SQLite, so the thread and its entire tool-call history survive a restart, a crash, or a week off. The sidebar is the list of them, each pinned to a workspace root.</p>
+
+      <figure class="sheet" style="--tc:#1d4ed8">
+        <img src="../Resources/panda-develop/GeneralUI.png" alt="The Panda-Develop desktop client: conversation list on the left, transcript on the right, model and VRAM in the header" loading="lazy">
+        <figcaption><b>The client.</b> Fifty threads in the sidebar, each labelled with its workspace and profile. The header carries the resident model and what it is holding (20.9 of 24&nbsp;GB); the meter at top right is this thread&rsquo;s context budget.</figcaption>
+      </figure>
+
+      <p>A turn streams over SSE: text as it arrives, tool calls as collapsible cards, approval prompts inline. Reads run freely. <strong>Edits, MCP calls and unrecognised shell commands stop and ask</strong>, showing the exact proposed change first. Safe read-only commands (<code>git status</code>, <code>pytest</code>) are auto-approved by prefix. A config-driven deny list goes the other way: <code>shutdown</code>, <code>diskpart</code>, <code>reg delete</code>, <code>rm -rf /</code>, <code>git push --force</code>, <code>pip install</code> are refused outright, cannot be approved, and beat session-wide auto-approve. They are matched as substrings rather than prefixes, so a chained <code>cd x &amp;&amp; shutdown /s</code> can&rsquo;t smuggle one past. This runs on my daily driver with a shell tool in the list; that had to be built in from the start rather than retrofitted.</p>
+
+      <figure class="sheet" style="--tc:#1d4ed8">
+        <img src="../Resources/panda-develop/ApprovalUI.png" alt="An approval card asking to allow a chained run_command, with Deny and Allow buttons" loading="lazy">
+        <figcaption><b>An approval.</b> The subtitle is the policy explaining itself: <code>cd</code> isn&rsquo;t on the auto-approved list, and because the command is chained no prefix check applies to the rest of it anyway.</figcaption>
+      </figure>
+
+      <p>The file browser is a lazily-expanding tree of the session&rsquo;s workspace, and it isn&rsquo;t decorative. It is how I check the agent&rsquo;s work without alt-tabbing to an editor. Markdown opens <em>rendered</em>, with a Raw toggle when I want to fix a line myself, and every other text file opens straight into an editable pane with its own Save button, so a quick fix never needs a trip outside the tool. Images render inline, and anything else says plainly that it&rsquo;s binary and can&rsquo;t be previewed.</p>
+
+      <figure class="sheet" style="--tc:#1d4ed8">
+        <img src="../Resources/panda-develop/PandaDevelopFileEdit.png" alt="The workspace file tree beside a rendered README.md, with Raw and Save controls in the corner" loading="lazy">
+        <figcaption><b>Editing in place.</b> The workspace tree on the left, README.md rendered on the right, Raw and Save sitting right where I&rsquo;d reach for them.</figcaption>
+      </figure>
+
+      <p>Starting a new conversation is where the design shows. Four choices, and the dialog states plainly that three of them are permanent:</p>
+
+      <ul>
+        <li><strong>Workspace.</strong> The root every file tool resolves against, with path traversal rejected. A guardrail, not a sandbox: <code>run_command</code> is a real shell, so the agent can reach anything I could.</li>
+        <li><strong>Profile.</strong> Local Qwen3.8/3.6/Coder builds plus Muse Glimmer, and <strong>Deepseek v4 Flash</strong> as a cloud option that bypasses the arbiter entirely. The picker is arbiter-aware: every entry shows its cost and what it would leave free.</li>
+        <li><strong>Tools.</strong> Six core tools are always present; everything else (charts, diagrams, image generation, MCP servers) is opted in per conversation and <em>fixed at creation</em>.</li>
+        <li><strong>Reasoning effort</strong> isn&rsquo;t fixed at creation; the <b>Think</b> dropdown changes it anytime. Each model exposes what it supports, and each level reserves real context, from 16,384 tokens at <code>low</code> up to 122,880 at <code>max</code>.</li>
+      </ul>
+
+      <figure class="sheet" style="--tc:#1d4ed8; max-width:560px; margin:0 auto 18px;">
+        <img src="../Resources/panda-develop/NewConversationUI.png" alt="The New conversation dialog: workspace, a list of profiles, a reasoning row, and tool chips" loading="lazy">
+        <figcaption><b>Everything a thread is, decided once.</b> Each profile previews what it costs and what it would leave free, and the footer does the subtraction: 131,072 of context, less the 16,384 reserved for output at this reasoning level, is 114,688 tokens to actually work in.</figcaption>
+      </figure>
+
+      <h2>The Numbers on the Screen</h2>
+
+      <p>Three readouts, because all three are things I used to guess at.</p>
+
+      <p><strong>tok/s, measured live.</strong> Includes network time on cloud profiles, and it&rsquo;s the fastest way to notice a model has spilled to CPU.</p>
+
+      <p><strong>The context budget meter</strong>, top right of the first screenshot, fills toward compaction at 80% of the real, reserve-adjusted token count: 114,688 here, not the profile&rsquo;s raw 131,072.</p>
+
+      <p><strong>Compaction, marked in the transcript.</strong> Crossing the line triggers a summary with a visible marker, so &ldquo;the model got dumber&rdquo; becomes &ldquo;the model compacted here.&rdquo; Cloud profiles carry a running cost estimate in the same footer.</p>
+
+      <p>The desktop client isn&rsquo;t the only way in. A companion mobile app talks to the same daemon, so a thread I started at my desk is right there to pick back up from my phone.</p>
+
+      <figure class="sheet" style="--tc:#1d4ed8; max-width:360px; margin:0 auto 18px;">
+        <img src="../Resources/panda-develop/PandaDevelopPhoneApp.jpg" alt="The Panda-Develop mobile app showing a list of existing conversation threads, each labelled with its workspace path and profile" loading="lazy">
+        <figcaption><b>Same daemon, different screen.</b> The mobile client reads the same SQLite-backed threads as the desktop app, so a conversation started at the desk is ready to continue on the go.</figcaption>
+      </figure>
+
+      <h2>Where It Stands</h2>
+
+      <p>I now have a coding tool with a UX that works exactly the way I like it. I no longer max my Claude subscription every single week because my local models are capable of handling so much work.</p>
+
+      <p>The same machine that couldn&rsquo;t run a useful coding agent locally in April 2025 now runs one that beats what I was paying for then.</p>
+
+    </div>
+
+    <div class="post-footer">
+      <a href="../blog.html" class="post-back" style="margin-bottom: 0;">&larr; All posts</a>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <span class="blog-cat blog-cat-tech">Tech</span>
+        <span class="post-date">September 3, 2026</span>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-text">&copy; 2026 Joel Pelletier</span>
+    <span class="footer-text">
+      <a href="mailto:joel@jpelletier.com">joel@jpelletier.com</a> &nbsp;&middot;&nbsp; Boston Area, MA
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>

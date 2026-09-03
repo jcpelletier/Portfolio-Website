@@ -11,6 +11,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://jpelletier.com/posts/panda-develop.html</loc>
+    <lastmod>2026-09-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://jpelletier.com/posts/media-management.html</loc>
     <lastmod>2026-06-01</lastmod>
     <priority>0.7</priority>
